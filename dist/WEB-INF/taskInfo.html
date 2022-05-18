@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>吉林惠金</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+
+    <!-- 引用本地静态资源 -->
+    <script src="./jssdk.js"></script>
+    <link rel="stylesheet" href="./csssdk.css" />
+
+
+    <style>
+        html,
+        body,
+        .app-wrapper {
+            position: relative;
+            width: 100%;
+            min-width: 1226px;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div> -->
+    <div id="root" class="app-wrapper"></div>
+
+    <script type="text/javascript">
+        (function() {
+            let amis = amisRequire('amis/embed');
+            let amisScoped = amis.embed('#root', {
+                "type": "page",
+                "title": "工作流模型管理",
+                // 可获取请求路径的值 http://localhost:9000/dist/WEB-INF/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%AC%AC%E5%9B%9B%E9%A1%B5taskInfo.html?nameId=3
+                // "visibleOn": "this.nameId == 3",
+                // "columns": [{
+                //     "name": "definitionName",
+                //     "label": "${nameId}",
+                //     "type": "text"
+                // }]
+                // "api": "get:http://localhost:9000/page/tasks/${nameID}/amis/info",
+                "body": [{
+                    "type": "service",
+                    "name": "common",
+                    "api": "get:http://localhost:9000/page/tasks/${nameID}/amis/info",
+                    "body": [{
+                        "type": "tpl",
+                        "tpl": "当前流程名称:${processDefinitionName}",
+                        "inline": false,
+                        "wrapperComponent": "div"
+                    }, {
+                        "type": "tpl",
+                        "tpl": "当前节点ID:${id}",
+                        "inline": false,
+                        "wrapperComponent": "div"
+                    }, {
+                        "type": "tpl",
+                        "tpl": "当前节点名称:${name}",
+                        "inline": false
+                    }, {
+                        "type": "radios",
+                        "name": "type",
+                        "value": "1",
+                        "label": "",
+                        "inline": true,
+                        "options": [{
+                            "label": "历史数据",
+                            "value": "1"
+                        }, {
+                            "label": "之前任务",
+                            "value": "2"
+                        }]
+                    }, {
+                        "type": "crud",
+                        "api": "",
+                        "columns": [{
+                            "name": "id",
+                            "label": "ID",
+                            "type": "text"
+                        }, {
+                            "name": "name",
+                            "label": "名称",
+                            "type": "text"
+                        }, {
+                            "type": "text",
+                            "label": "值",
+                            "name": "value"
+                        }, {
+                            "type": "text",
+                            "label": "localizedName",
+                            "name": "localizedName"
+                        }, {
+                            "type": "text",
+                            "label": "localizedDescription",
+                            "name": "localizedDescription"
+                        }, {
+                            "type": "text",
+                            "label": "taskId",
+                            "name": "taskId"
+                        }, {
+                            "type": "text",
+                            "label": "processInstanceId",
+                            "name": "processInstanceId"
+                        }, {
+                            "type": "text",
+                            "label": "executionId",
+                            "name": "executionId"
+                        }],
+                        "bulkActions": [],
+                        "itemActions": [],
+                        "perPageAvailable": [
+                            10
+                        ],
+                        "messages": {},
+                        "filter": null,
+                        "hideQuickSaveBtn": false,
+                        "headerToolbar": [],
+                        "columnsTogglable": "auto",
+                        "footable": false,
+                        "visibleOn": "this.type == 1",
+                        "clearValueOnHidden": false,
+                        "visible": "",
+                        "source": "${variableList}"
+                    }, {
+                        "type": "crud",
+                        "api": "",
+                        "columns": [{
+                            "name": "id",
+                            "label": "活动ID",
+                            "type": "text"
+                        }, {
+                            "name": "processInstanceId",
+                            "label": "流程实例ID",
+                            "type": "text"
+                        }, {
+                            "type": "text",
+                            "label": "活动名称",
+                            "name": "activityName"
+                        }, {
+                            "type": "text",
+                            "label": "办理人",
+                            "name": "assignee"
+                        }, {
+                            "type": "text",
+                            "label": "开始时间",
+                            "name": "startTime"
+                        }, {
+                            "type": "text",
+                            "label": "结束时间",
+                            "name": "endTime"
+                        }],
+                        "bulkActions": [],
+                        "itemActions": [],
+                        "visibleOn": "this.type == 2",
+                        "source": "${historyList}"
+                    }, {
+                        "title": "我的意见",
+                        "type": "form",
+                        // "debug": "true",
+                        "data": {
+                            // "myFormData": "",
+                            // "id": ""
+                        },
+                        "api": "post:http://localhost:9000/tasks/amisCompleteComplex",
+                        "body": [{
+                            "type": "input-table",
+                            "name": "myFormData.list",
+                            "columns": [{
+                                "name": "id",
+                                "label": "Id"
+                            }, {
+                                "name": "typeName",
+                                "label": "TypeName"
+                            }, {
+                                "name": "name",
+                                "label": "Name"
+                            }, {
+                                "type": "input-text",
+                                "label": "参数值",
+                                "name": "value"
+                            }]
+                        }],
+                        // "reload": "window"
+                        "redirect": "taskList.html"
+                    }]
+                }],
+                "toolbar": [{
+                    "type": "button",
+                    "actionType": "link",
+                    "label": "返回任务列表",
+                    "icon": "fa fa-slideshare",
+                    "tooltip": "",
+                    "tooltipPlacement": "bottom",
+                    "iconClassName": "pull-left",
+                    "size": "md",
+                    "link": "taskList.html"
+                }]
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

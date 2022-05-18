@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>吉林惠金</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+    <!-- <script src="https://houtai.baidu.com/v2/jssdk"></script>
+    <link rel="stylesheet" href="https://houtai.baidu.com/v2/csssdk" /> -->
+
+    <!-- 引用本地静态资源 -->
+    <script src="./jssdk.js"></script>
+    <link rel="stylesheet" href="./csssdk.css" />
+
+    <!-- <link rel="stylesheet" href="jssdk/sdk.css"/>
+    <link rel="stylesheet" href="jssdk/helper.css"/>
+    <link rel="stylesheet" href="jssdk/iconfont.css"/>
+    <script src="jssdk/sdk.js"></script> -->
+
+    <!-- <link rel="stylesheet" href="amis-sdk/sdk.css"/>
+    <script src="amis-sdk/sdk.js"></script> -->
+
+    <style>
+        html,
+        body,
+        .app-wrapper {
+            position: relative;
+            width: 100%;
+            min-width: 1226px;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div> -->
+    <div id="root" class="app-wrapper"></div>
+    <!-- </div> -->
+    <!-- <script src="../amis1.1.7/sdk.js"></script>
+<script src="https://houtai.baidu.com/v2/jssdk"></script> -->
+    <!--<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>-->
+
+    <!-- <script src="jssdk/sdk.js"></script> -->
+
+    <script type="text/javascript">
+        (function() {
+            let amis = amisRequire('amis/embed');
+            let amisScoped = amis.embed('#root', {
+                "type": "page",
+                "title": "流程设计",
+                "body": [{
+                    "type": "tpl",
+                    "tpl": "设计中流程管理",
+                    "inline": false
+                }, {
+
+                    "type": "crud",
+                    "api": "http://localhost:9000/page/model/modelList",
+                    "syncLocation": false,
+                    "columns": [{
+                        "name": "modelId",
+                        "label": "流程模型编号",
+                        "type": "text"
+                    }, {
+                        "type": "text",
+                        "label": "流程模型名称",
+                        "name": "modelName"
+                    }, {
+                        "type": "text",
+                        "label": "key",
+                        "name": "modelKey"
+                    }, {
+                        "type": "text",
+                        "label": "deploymentId",
+                        "name": "modelDeploymentId"
+                    }, {
+                        "type": "text",
+                        "label": "版本",
+                        "name": "modelVersion"
+                    }, {
+                        "type": "text",
+                        "label": "创建时间",
+                        "name": "modelCreateTime"
+                    }, {
+                        "type": "operation",
+                        "label": "操作",
+                        "buttons": [{
+                            // "label": "编辑",
+                            "type": "link",
+                            "href": "http://localhost:9000/editor?modelId=${modelId}",
+                            "body": "编辑",
+                            "blank": false
+                        }, {
+                            "type": "button",
+                            "label": "删除",
+                            "actionType": "ajax",
+                            "level": "link",
+                            "className": "text-danger",
+                            "confirmText": "确定要删除？",
+                            "api": "POST:http://localhost:9000/models/${modelId}/delete"
+                        }, {
+                            "label": "发布流程",
+                            "type": "button",
+                            "actionType": "ajax",
+                            "level": "link",
+                            "className": "text-info",
+                            "confirmText": "确认发布？",
+                            "api": "POST:http://localhost:9000/models/${modelId}/deployment",
+                            "reload": "window"
+                        }],
+                        "name": ""
+                    }],
+                    "bulkActions": [],
+                    "itemActions": [],
+                    "features": [
+                        "update",
+                        "view",
+                        "delete"
+                    ],
+                    // "messages": {},
+                    // "keepItemSelectionOnPageChange": false,
+                    // "perPage": 10,
+                    "source": "${modelList}",
+                    // "initFetch": true,
+                    // "affixHeader": true,
+                    // "headerToolbar": [],
+                    // "visibleOn": "",
+                    // "clearValueOnHidden": false,
+                    // "visible": true,
+                    // "alwaysShowPagination": false,
+                    // "maxKeepItemSelectionLength": "",
+                    // "perPageField": "perPage",
+                    "orderField": "ID"
+                }, {
+                    "type": "tpl",
+                    "tpl": "已上线流程管理",
+                    "inline": false,
+                    "wrapperComponent": "div"
+                }, {
+                    "type": "crud",
+                    "api": "http://localhost:9000/page/model/definitionsList",
+                    "columns": [{
+                        "name": "name",
+                        "label": "流程名称",
+                        "type": "text"
+                    }, {
+                        "name": "id",
+                        "label": "流程版本编号",
+                        "type": "text"
+                    }, {
+                        "type": "text",
+                        "label": "部署编号",
+                        "name": "deploymentId"
+                    }, {
+                        "name": "description",
+                        "label": "流程描述",
+                        "type": "text"
+                    }, {
+                        "type": "operation",
+                        "label": "操作",
+                        "buttons": [{
+                            "type": "button",
+                            "label": "删除",
+                            "actionType": "ajax",
+                            "level": "link",
+                            "className": "text-danger",
+                            "confirmText": "确定要删除？",
+                            "api": "POST:http://localhost:9000/deployments/${deploymentId}/delete"
+                        }]
+                    }],
+                    "bulkActions": [],
+                    "itemActions": [],
+                    "features": [
+                        "delete"
+                    ],
+                    // "perPageAvailable": [
+                    //     10
+                    // ],
+                    // "messages": {},
+                    // "perPage": 10,
+                    // "initFetch": true,
+                    // "silentPolling": true,
+                    "source": "${definitionsList}"
+                        // "headerToolbar": [],
+                        // "alwaysShowPagination": false,
+                }],
+                "toolbar": [
+
+                    {
+                        "type": "button",
+                        "api": {
+                            "method": "get",
+                            "url": "http://localhost:9000/models/newModel"
+                        },
+                        "label": "创建新流程",
+                        "actionType": "ajax",
+                        "icon": "fa fa-slideshare",
+                        "tooltip": "",
+                        "tooltipPlacement": "bottom",
+                        "iconClassName": "pull-left",
+                        "size": "md",
+                        "redirect": "http://localhost:9000/editor?modelId=${modelId}"
+                    }
+                ]
+            });
+        })();
+    </script>
+
+</body>
+
+</html>
