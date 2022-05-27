@@ -122,20 +122,24 @@
                         "view",
                         "delete"
                     ],
-                    // "messages": {},
-                    // "keepItemSelectionOnPageChange": false,
-                    // "perPage": 10,
                     "source": "${modelList}",
-                    // "initFetch": true,
-                    // "affixHeader": true,
-                    // "headerToolbar": [],
-                    // "visibleOn": "",
-                    // "clearValueOnHidden": false,
-                    // "visible": true,
-                    // "alwaysShowPagination": false,
-                    // "maxKeepItemSelectionLength": "",
-                    // "perPageField": "perPage",
-                    "orderField": "ID"
+                    "orderField": "ID",
+                    "perPageAvailable": [
+                        10
+                    ],
+                    "messages": {},
+                    // "alwaysShowPagination": true,
+                    "headerToolbar": [{
+                        "type": "bulk-actions",
+                        "align": "left"
+                    }],
+                    "footerToolbar": [{
+                        "type": "pagination",
+                        "align": "right"
+                    }, {
+                        "type": "statistics",
+                        "align": "left"
+                    }]
                 }, {
                     "type": "tpl",
                     "tpl": "已上线流程管理",
@@ -178,16 +182,104 @@
                     "features": [
                         "delete"
                     ],
-                    // "perPageAvailable": [
-                    //     10
-                    // ],
-                    // "messages": {},
-                    // "perPage": 10,
-                    // "initFetch": true,
-                    // "silentPolling": true,
-                    "source": "${definitionsList}"
-                        // "headerToolbar": [],
-                        // "alwaysShowPagination": false,
+                    "perPageAvailable": [
+                        10
+                    ],
+                    "source": "${definitionsList}",
+                    "messages": {},
+                    // "alwaysShowPagination": true,
+                    "headerToolbar": [{
+                        "type": "bulk-actions",
+                        "align": "left"
+                    }],
+                    "footerToolbar": [{
+                        "type": "pagination",
+                        "align": "right"
+                    }, {
+                        "type": "statistics",
+                        "align": "left"
+                    }]
+
+                }, {
+                    "type": "tpl",
+                    "tpl": "任务列表-所有人的任务",
+                    "inline": false,
+                    "wrapperComponent": "div"
+                }, {
+                    "type": "crud",
+                    "api": "http://localhost:9000/page/tasks/Amislist",
+                    "syncLocation": false,
+                    "columns": [{
+                        "name": "definitionName",
+                        "label": "流程名称",
+                        "type": "text"
+                    }, {
+                        "type": "text",
+                        "label": "流程版本编号",
+                        "name": "processDefinitionId"
+                    }, {
+                        "type": "text",
+                        "label": "流程部署编号",
+                        "name": "processInstanceId"
+                    }, {
+                        "type": "text",
+                        "label": "节点名称",
+                        "name": "name"
+                    }, {
+                        "type": "text",
+                        "label": "节点ID",
+                        "name": "id"
+                    }, {
+                        "type": "text",
+                        "label": "创建时间",
+                        "name": "createTime"
+                    }, {
+                        "type": "operation",
+                        "label": "操作",
+                        "buttons": [{
+                            "label": "快速同意",
+                            "type": "button",
+                            "actionType": "ajax",
+                            "level": "link",
+                            "className": "text-info",
+                            "confirmText": "确认同意？",
+                            "api": "POST:http://localhost:9000/tasks/amis/${id}/complete"
+                        }, {
+                            // "label": "编辑",
+                            "type": "link",
+                            "className": "text-info",
+                            // "href": "http://localhost:9000/page/tasks/${id}/amis/info",
+                            "href": "taskInfo.html?nameID=${id}",
+                            "body": "查看详情",
+                            "blank": false
+                        }],
+                        "name": ""
+                    }],
+                    "bulkActions": [],
+                    "itemActions": [],
+                    "features": [
+                        "update",
+                        "view",
+                        "delete"
+                    ],
+                    "source": "${allTaskList}",
+                    "orderField": "ID",
+                    "perPageAvailable": [
+                        10
+                    ],
+                    "messages": {},
+                    "alwaysShowPagination": true,
+                    "headerToolbar": [{
+                        "type": "bulk-actions",
+                        "align": "left"
+                    }],
+                    "footerToolbar": [{
+                        "type": "pagination",
+                        "align": "right"
+                    }, {
+                        "type": "statistics",
+                        "align": "left"
+                    }]
                 }],
                 "toolbar": [
 
