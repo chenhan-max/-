@@ -50,22 +50,8 @@
                 "body": [{
                     "type": "service",
                     "name": "common",
-                    "api": "get:http://localhost:9000/page/tasks/${nameID}/amis/info",
+                    "api": "get:http://localhost:9000/history/historyList/info/${nameID}",
                     "body": [{
-                        "type": "tpl",
-                        "tpl": "当前流程名称:${processDefinitionName}",
-                        "inline": false,
-                        "wrapperComponent": "div"
-                    }, {
-                        "type": "tpl",
-                        "tpl": "当前节点ID:${id}",
-                        "inline": false,
-                        "wrapperComponent": "div"
-                    }, {
-                        "type": "tpl",
-                        "tpl": "当前节点名称:${name}",
-                        "inline": false
-                    }, {
                         "type": "radios",
                         "name": "type",
                         "value": "1",
@@ -83,36 +69,20 @@
                         "api": "",
                         "columns": [{
                             "name": "id",
-                            "label": "ID",
+                            "label": "变量id",
                             "type": "text"
                         }, {
-                            "name": "name",
-                            "label": "名称",
+                            "name": "variableName",
+                            "label": "变量名称",
                             "type": "text"
+                        }, {
+                            "type": "text",
+                            "label": "变量类型",
+                            "name": "variableTypeName"
                         }, {
                             "type": "text",
                             "label": "值",
                             "name": "value"
-                        }, {
-                            "type": "text",
-                            "label": "localizedName",
-                            "name": "localizedName"
-                        }, {
-                            "type": "text",
-                            "label": "localizedDescription",
-                            "name": "localizedDescription"
-                        }, {
-                            "type": "text",
-                            "label": "taskId",
-                            "name": "taskId"
-                        }, {
-                            "type": "text",
-                            "label": "processInstanceId",
-                            "name": "processInstanceId"
-                        }, {
-                            "type": "text",
-                            "label": "executionId",
-                            "name": "executionId"
                         }],
                         "bulkActions": [],
                         "itemActions": [],
@@ -128,68 +98,42 @@
                         "visibleOn": "this.type == 1",
                         "clearValueOnHidden": false,
                         "visible": "",
-                        "source": "${variableList}"
+                        "source": "${historyVariableInstanceList}"
                     }, {
                         "type": "crud",
                         "api": "",
                         "columns": [{
-                            "name": "id",
-                            "label": "活动ID",
-                            "type": "text"
-                        }, {
-                            "name": "processInstanceId",
-                            "label": "流程实例ID",
-                            "type": "text"
-                        }, {
-                            "type": "text",
-                            "label": "活动名称",
-                            "name": "activityName"
-                        }, {
-                            "type": "text",
-                            "label": "办理人",
-                            "name": "assignee"
-                        }, {
-                            "type": "text",
-                            "label": "开始时间",
-                            "name": "startTime"
-                        }, {
-                            "type": "text",
-                            "label": "结束时间",
-                            "name": "endTime"
-                        }],
+                                "name": "id",
+                                "label": "任务ID",
+                                "type": "text"
+                            }, {
+                                "name": "processInstanceId",
+                                "label": "流程实例ID",
+                                "type": "text"
+                            }, {
+                                "type": "text",
+                                "label": "活动名称",
+                                "name": "activityName"
+                            }
+                            //  {
+                            //     "type": "text",
+                            //     "label": "办理人",
+                            //     "name": "assignee"
+                            // }
+                            , {
+                                "type": "text",
+                                "label": "开始时间",
+                                "name": "startTime"
+                            }, {
+                                "type": "text",
+                                "label": "结束时间",
+                                "name": "endTime"
+                            }
+                        ],
                         "bulkActions": [],
                         "itemActions": [],
                         "visibleOn": "this.type == 2",
-                        "source": "${historyList}"
-                    }, {
-                        "title": "我的意见",
-                        "type": "form",
-                        // "debug": "true",
-                        "data": {
-                            // "myFormData": "",
-                            // "id": ""
-                        },
-                        "api": "post:http://localhost:9000/tasks/amisCompleteComplex",
-                        "body": [{
-                            "type": "input-table",
-                            "name": "myFormData.list",
-                            "columns": [{
-                                "name": "id",
-                                "label": "Id"
-                            }, {
-                                "name": "typeName",
-                                "label": "TypeName"
-                            }, {
-                                "name": "name",
-                                "label": "Name"
-                            }, {
-                                "type": "input-text",
-                                "label": "参数值",
-                                "name": "value"
-                            }]
-                        }],
-                        // "reload": "window"
-                        "redirect": "modelList.html"
+                        "source": "${historyActivityInstanceList}"
                     }]
                 }],
                 "toolbar": [{

@@ -142,7 +142,7 @@
                             "type": "link",
                             "className": "text-info",
                             // "href": "http://localhost:9000/page/tasks/${id}/amis/info",
-                            "href": "taskDefinInfo.html?nameID=${id}&userid=${userid}&roleids=${roleids}",
+                            "href": "taskDefinInfo.html?nameID=${id}&userid=${userid}&roleids=${roleids}&page=${page}&perPage=${perPage}",
                             "body": "查看详情",
                             "blank": false
                         }],
@@ -156,6 +156,131 @@
                         "delete"
                     ],
                     "source": "${myRoleHandleList}",
+                    "orderField": "ID",
+                    "perPageAvailable": [
+                        10
+                    ],
+                    "messages": {},
+                    // "alwaysShowPagination": true,
+                    "headerToolbar": [{
+                        "type": "bulk-actions",
+                        "align": "left"
+                    }],
+                    "footerToolbar": [{
+                        "type": "pagination",
+                        "align": "right"
+                    }, {
+                        "type": "statistics",
+                        "align": "left"
+                    }]
+                }, {
+                    "type": "tpl",
+                    "tpl": "我所在角色处理过的任务",
+                    "inline": false,
+                    "wrapperComponent": "div"
+                }, {
+                    "type": "crud",
+                    "api": "http://localhost:9000/history/historyList/role/taskProcess/list?userid=${userid}&roleids=${roleids}&page=${page}&perPage=${perPage}",
+                    "syncLocation": false,
+                    "columns": [{
+                        "name": "definitionName",
+                        "label": "流程名称",
+                        "type": "text"
+                    }, {
+                        "type": "text",
+                        "label": "流程版本编号",
+                        "name": "processDefinitionId"
+                    }, {
+                        "type": "text",
+                        "label": "流程部署编号",
+                        "name": "processInstanceId"
+                    }, {
+                        "type": "text",
+                        "label": "节点名称",
+                        "name": "name"
+                    }, {
+                        "type": "text",
+                        "label": "节点ID",
+                        "name": "id"
+                    }, {
+                        "type": "text",
+                        "label": "创建时间",
+                        "name": "createTime"
+                    }],
+                    "bulkActions": [],
+                    "itemActions": [],
+                    "features": [
+                        "update",
+                        "view",
+                        "delete"
+                    ],
+                    "source": "${taskProcessInstanceList}",
+                    "orderField": "ID",
+                    "perPageAvailable": [
+                        10
+                    ],
+                    "messages": {},
+                    // "alwaysShowPagination": true,
+                    "headerToolbar": [{
+                        "type": "bulk-actions",
+                        "align": "left"
+                    }],
+                    "footerToolbar": [{
+                        "type": "pagination",
+                        "align": "right"
+                    }, {
+                        "type": "statistics",
+                        "align": "left"
+                    }]
+                }, {
+                    "type": "tpl",
+                    "tpl": "我所在角色处理过的历史完成任务",
+                    "inline": false,
+                    "wrapperComponent": "div"
+                }, {
+                    "type": "crud",
+                    "api": "http://localhost:9000/history/historyList/role/historyProcess/list?userid=${userid}&roleids=${roleids}&page=${page}&perPage=${perPage}",
+                    "syncLocation": false,
+                    "columns": [{
+                        "name": "id",
+                        "label": "流程部署编号",
+                        "type": "text"
+                    }, {
+                        "type": "text",
+                        "label": "流程版本编号",
+                        "name": "processDefinitionId"
+                    }, {
+                        "type": "text",
+                        "label": "流程名称",
+                        "name": "processDefinitionName"
+                    }, {
+                        "type": "text",
+                        "label": "开始时间",
+                        "name": "startTime"
+                    }, {
+                        "type": "text",
+                        "label": "结束时间",
+                        "name": "endTime"
+                    }, {
+                        "type": "operation",
+                        "label": "操作",
+                        "buttons": [{
+                            "type": "link",
+                            "className": "text-info",
+                            "href": "taskHisInfo.html?nameID=${id}&userid=${userid}&roleids=${roleids}",
+                            "body": "查看详情",
+                            "blank": false
+                        }],
+                        "name": ""
+                    }],
+                    "bulkActions": [],
+                    "itemActions": [],
+                    "features": [
+                        "update",
+                        "view",
+                        "delete"
+                    ],
+                    "source": "${historyProcessInstanceList}",
                     "orderField": "ID",
                     "perPageAvailable": [
                         10
